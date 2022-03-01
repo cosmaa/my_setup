@@ -1,0 +1,36 @@
+#!/bin/bash
+set -e
+
+read -p " enter your rg search String: " string_to_search
+
+FILES_TO_UPDATE=$( rg -l "$string_to_search")
+
+echo "#######################"
+echo "Found this Files: "
+echo
+for fn in $FILES_TO_UPDATE; do
+    echo $fn
+done
+echo "======================="
+read -p "are this files okay to update? [y,N] :" okay
+echo
+echo
+
+if [[ $okay == "y" || $okay == "Y" ]];
+then
+  read -p "Enter the search string: " search
+  read -p "Enter the replace string: " replace
+
+  for fn in $FILES_TO_UPDATE; do
+        if [[ $search != "" && $replace != "" ]]; then
+        sed -i "s/$search/$replace/gi" "$fn"
+        fi
+  done
+
+  echo
+  echo "#######################"
+  echo "cool its done"
+  echo "#######################"
+else
+  echo "okay maybe try it again"
+fi

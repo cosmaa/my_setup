@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+string=$1
+seperator=$2
+echo "${string// /$seperator}"

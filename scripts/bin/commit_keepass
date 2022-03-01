@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd $STANI_SETUP
+
+cp tools/Geheimnisse.kdbx ~/Dropbox/
+echo "duplicated in Dropbox"
+cp tools/Geheimnisse.kdbx ~/Nextcloud/Stani/my_setup/
+echo "duplicated in Nextcloud"
+
+
+
+git add tools/Geheimnisse.kdbx
+git commit -m "update kp-database"
+git push origin -u main

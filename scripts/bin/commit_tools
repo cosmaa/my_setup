@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd $STANI_SETUP
+git add tools/.
+git commit -m "update stani-tools"
+git push origin -u main

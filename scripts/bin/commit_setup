@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd $STANI_SETUP
+git add .
+git commit -m "update setup"
+git push origin -u main

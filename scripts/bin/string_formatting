@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e
+
+read -p "enter your string: " foo
+read -p "enter your string1: " string1
+read -p "enter your string2: " string2
+read -p "enter your string3: " string3
+
+result=""
+
+if [[  ${#foo} -lt 10 ]]
+then
+  foo=$( echo $foo | tr a-z A-Z)
+  i=0;
+  while [ $i -lt ${#foo} ] ;
+  do
+    result=${result}${foo:$i:1}${string1:$i:1}${string2:$i:1}${string3:$i:1};
+    i=$((i+1)) ;
+  done
+fi
+echo $result | xclip -selection clipboard
+echo $result" copied to clipboard"
+

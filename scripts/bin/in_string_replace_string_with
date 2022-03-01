@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+string=$1
+replace=$2
+with=$3
+
+echo "${string//$replace/$with}"

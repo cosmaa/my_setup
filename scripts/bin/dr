@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+
+xfce4-terminal \
+  -T DR-GAME \
+  --maximize \
+  --working-directory ~/otto/hopper_amzn-grace/automated_dr &

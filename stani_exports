@@ -1,0 +1,6 @@
+export STANI_PROJECTS="${HOME}/stani"
+export STANI_TOOLS="${STANI_PROJECTS}/my_setup/tools"
+export STANI_SCRIPTS="${STANI_PROJECTS}/my_setup/scripts"
+export STANI_SETUP="${STANI_PROJECTS}/my_setup"
+
+export PATH="${PATH}:${STANI_PROJECTS}/:${STANI_SCRIPTS}/bin"
