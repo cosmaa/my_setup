@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+read -p " enter your rg search String: " search
+FILES_TO_UPDATE=$(rg -l "$search") || echo "nothing found in this root $DIR"
+if [[ $FILES_TO_UPDATE != "" ]]; then
+
+  echo "#######################"
+  echo "Found this Files: "
+  echo
+  for fn in $FILES_TO_UPDATE; do
+    echo $fn
+  done
+
+  echo "======================="
+  read -p "are this files okay to update? [y,N] :" okay
+  echo
+  echo
+
+  if [[ $okay == "y" || $okay == "Y" ]]; then
+    read -p "Enter the replace string: " replace
+
+    for fn in $FILES_TO_UPDATE; do
+      if [[ $search != "" && $replace != "" ]]; then
+        sed -i "s/$search/$replace/gi" "$fn"
+      fi
+    done
+
+    echo
+    echo "#######################"
+    echo "cool its done"
+    echo "#######################"
+  else
+    echo "okay maybe try it again"
+  fi
+fi
