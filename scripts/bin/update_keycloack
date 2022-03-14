@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-  DIRNAME=$(dirname "$0")
-  . "${DIRNAME}/helpers/fun_helper.sh"
-  . "${DIRNAME}/helpers/_fzf_helpers.sh"
 DIR=$(cd -P "$(dirname "$SOURCE")" >/dev/null 2>&1 && pwd)
 cd ~/otto/
 Yellow='\033[0;33m'
