@@ -1,13 +1,15 @@
 #!/bin/bash
 set -e
+
+  DIRNAME=$(dirname "$0")
+  . "${DIRNAME}/helpers/fun_helper.sh"
+  . "${DIRNAME}/helpers/_fzf_helpers.sh"
 DIR=$(cd -P "$(dirname "$SOURCE")" >/dev/null 2>&1 && pwd)
 cd ~/otto/
 Yellow='\033[0;33m'
 NC='\033[0m'
 Blue='\033[0;34m'
 Purple='\033[0;35m'
-
-
 
 # ---------------------------- Funktions ----------------------------------------
 function update_version() {
@@ -34,6 +36,8 @@ done
 
 
 # ---------------------------- RUN ----------------------------------------
+
+
 LOOKING_FOR=("keycloakResourceServerVersion" "reactiveSecurityVersion")
 
 check_package_versions
@@ -48,7 +52,6 @@ if [[ $okay == "y" || $okay == "Y" ]]; then
     read -p "" replace
 
     for fn in $FILES_TO_UPDATE; do
-
       VERSION=$(sed -n "/val $package/p" $fn | sed -e 's/[^0-9]/ /g' -e 's/^ *//g' -e 's/ *$//g')
       printf "want to replace ${Yellow}%s${NC} with ${Purple}%s${NC} in project $Blue%s$NC ???  [Y,n]: " "$replace" "$VERSION" "$(dirname "${fn}")"
       read -p "" enter
@@ -59,12 +62,7 @@ if [[ $okay == "y" || $okay == "Y" ]]; then
       fi
     done
   done
-
   check_package_versions
-
-  echo "#######################"
-  echo "cool its done"
-  echo "#######################"
-
+  print_done
 fi
 

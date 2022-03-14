@@ -1,0 +1,2 @@
+de.otto.hopper.keycloak-resourceserver 202203021125560100
+de.otto.hopper.hopper_reactive-security 2021122210071901005
