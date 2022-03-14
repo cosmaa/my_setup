@@ -14,13 +14,12 @@ function update_version() {
     local fn=$1
     local replace=$2
     local version=$3
-    printf "${Purple}replacing VERSION${NC}\n"
     sed -i "s/$version/$replace/gi" "$fn"
+    printf "${Purple}replaced VERSION $version with $replace ${NC}\n"
 
 }
 
 function check_package_versions() {
-
 for package in "${LOOKING_FOR[@]}"; do
   echo "#######################"
   printf "${Purple}${package}${NC} Version: \n"
@@ -33,25 +32,9 @@ done
 
 }
 
-function push_changes() {
-    for package in "${LOOKING_FOR[@]}"; do
-      FILES_TO_UPDATE=$(rg -l "$package")
-      for fn in $FILES_TO_UPDATE; do
-        cd "$(dirname "${fn}")"
-        echo "$(dirname "${fn}")"
-        git add "build.gradle.kts"
-        git commit -m "sm|update ${package}|Update Day" --author="The Hopper Hive <ft-hopper@otto.de>" | echo "okay"
-        git stash pop
-        cd ~/otto/
-      done
-    done
-}
 
 # ---------------------------- RUN ----------------------------------------
 LOOKING_FOR=("keycloakResourceServerVersion" "reactiveSecurityVersion")
-for package in "${LOOKING_FOR[@]}"; do
-printf "updating $package"
-done
 
 check_package_versions
 
@@ -59,7 +42,8 @@ echo "======================="
 read -p "are this files okay to update? [y,N]: " okay
 if [[ $okay == "y" || $okay == "Y" ]]; then
   for package in "${LOOKING_FOR[@]}"; do
-    printf "please enter new version of ${Purple}$package${NC}: "
+
+    printf "####################### \n please enter new version of ${Purple}$package${NC}: "
     FILES_TO_UPDATE=$(rg -l "$package") || echo "nothing found in this root $DIR"
     read -p "" replace
 
@@ -77,8 +61,6 @@ if [[ $okay == "y" || $okay == "Y" ]]; then
   done
 
   check_package_versions
-
-  push_changes
 
   echo "#######################"
   echo "cool its done"
