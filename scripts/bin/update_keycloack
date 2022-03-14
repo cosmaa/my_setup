@@ -63,6 +63,6 @@ if [[ $okay == "y" || $okay == "Y" ]]; then
     done
   done
   check_package_versions
-  print_done
+  echo "############# done ##################"
 fi
 
