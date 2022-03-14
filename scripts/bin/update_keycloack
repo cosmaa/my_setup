@@ -10,35 +10,32 @@ Purple='\033[0;35m'
 
 # ---------------------------- Funktions ----------------------------------------
 function update_version() {
-    local fn=$1
-    local replace=$2
-    local version=$3
-    sed -i "s/$version/$replace/gi" "$fn"
-    printf "${Purple}replaced VERSION $version with $replace ${NC}\n"
+  local fn=$1
+  local replace=$2
+  local version=$3
+  sed -i "s/$version/$replace/gi" "$fn"
+  printf "${Purple}replaced VERSION $version with $replace ${NC}\n"
 
 }
 
 function check_package_versions() {
-for package in "${LOOKING_FOR[@]}"; do
-  echo "#######################"
-  printf "${Purple}${package}${NC} Version: \n"
-  FILES_TO_UPDATE=$(rg -l "$package") || echo "nothing found in this root $DIR"
-  for fn in $FILES_TO_UPDATE; do
-    VERSION=$(sed -n "/val $package/p" $fn | sed -e 's/[^0-9]/ /g' -e 's/^ *//g' -e 's/ *$//g')
-    printf "version $Yellow %s $NC in project $Blue%s$NC \n" "$VERSION" "$(dirname "${fn}")"
+  for package in "${LOOKING_FOR[@]}"; do
+    echo "#######################"
+    printf "${Purple}${package}${NC} Version: \n"
+    FILES_TO_UPDATE=$(rg -l "$package") || echo "nothing found in this root $DIR"
+    for fn in $FILES_TO_UPDATE; do
+      VERSION=$(sed -n "/val $package/p" $fn | sed -e 's/[^0-9]/ /g' -e 's/^ *//g' -e 's/ *$//g')
+      printf "version $Yellow %s $NC in project $Blue%s$NC \n" "$VERSION" "$(dirname "${fn}")"
+    done
   done
-done
 
 }
 
-
 # ---------------------------- RUN ----------------------------------------
-
 
 LOOKING_FOR=("keycloakResourceServerVersion" "reactiveSecurityVersion")
 
 check_package_versions
-
 echo "======================="
 read -p "are this files okay to update? [y,N]: " okay
 if [[ $okay == "y" || $okay == "Y" ]]; then
@@ -53,13 +50,12 @@ if [[ $okay == "y" || $okay == "Y" ]]; then
       printf "want to replace ${Yellow}%s${NC} with ${Purple}%s${NC} in project $Blue%s$NC ???  [Y,n]: " "$replace" "$VERSION" "$(dirname "${fn}")"
       read -p "" enter
       if [[ $enter == "n" || $enter == "N" ]]; then
-          printf "${Yellow}not updating${NC}\n"
-        else
-          update_version "$fn" "$replace" "$VERSION"
+        printf "${Yellow}not updating${NC}\n"
+      else
+        update_version "$fn" "$replace" "$VERSION"
       fi
     done
   done
   check_package_versions
   echo "############# done ##################"
 fi
-
