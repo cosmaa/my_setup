@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+DIR=$(cd -P "$(dirname "$SOURCE")" >/dev/null 2>&1 && pwd)
+cd ~/otto/
+Yellow='\033[0;33m'
+NC='\033[0m'
+Blue='\033[0;34m'
+Purple='\033[0;35m'
+
+
+
+LOOKING_FOR=("keycloakResourceServerVersion" "reactiveSecurityVersion")
+
+for package in "${LOOKING_FOR[@]}"; do
+  FILES_TO_UPDATE=$(rg -l "$package")
+  for fn in $FILES_TO_UPDATE; do
+    cd "$(dirname "${fn}")"
+    printf "${Purple}$(dirname "${fn}")${NC} \n"
+    git stash
+    git pull -r | printf "$Blue$(dirname "${fn}")$NC okay for update \n"
+    cd ~/otto/
+  done
+done

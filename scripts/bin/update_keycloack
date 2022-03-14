@@ -47,26 +47,12 @@ function push_changes() {
     done
 }
 
-function stash_and_update_packages() {
-    for package in "${LOOKING_FOR[@]}"; do
-          FILES_TO_UPDATE=$(rg -l "$package")
-          for fn in $FILES_TO_UPDATE; do
-            cd "$(dirname "${fn}")"
-            echo "$(dirname "${fn}")"
-            git stash
-            git pull -r | printf "$Blue$(dirname "${fn}")$NC okay for update \n"
-            cd ~/otto/
-          done
-        done
-}
-
 # ---------------------------- RUN ----------------------------------------
 LOOKING_FOR=("keycloakResourceServerVersion" "reactiveSecurityVersion")
 for package in "${LOOKING_FOR[@]}"; do
 printf "updating $package"
 done
 
-stash_and_update_packages
 check_package_versions
 
 echo "======================="
