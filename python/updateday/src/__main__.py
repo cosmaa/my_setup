@@ -1,12 +1,16 @@
-import sys
-import os
-from PyQt6.QtGui import QGuiApplication
-from PyQt6.QtQml import QQmlApplicationEngine
-from PyQt6.QtQuick import QQuickWindow
+import logging
 
-QQuickWindow.setSceneGraphBackend('software')
-app = QGuiApplication(sys.argv)
-engine = QQmlApplicationEngine()
-engine.quit.connect(app.quit)
-engine.load('./UI/main.qml')
-sys.exit(app.exec())
+from .utils.logger import ColorLogFormatter, Color
+
+logger = logging.getLogger()
+logger.setLevel('DEBUG')
+
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(ColorLogFormatter())
+logger.addHandler(stream_handler)
+
+
+logger.info("This is a green info")
+logger.warning("This is warning")
+logger.error("This is error")
+logger.critical("This is critical")

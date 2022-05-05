@@ -1,0 +1,2 @@
+#!/bin/bash
+/home/comaass/stani/my_setup/python/updateday/venv/bin/python -m src
