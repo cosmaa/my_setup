@@ -1,2 +1,7 @@
 #!/bin/bash
+current=$( echo "$PWD")
+echo $current
+cd /home/comaass/stani/my_setup/python/updateday/
 /home/comaass/stani/my_setup/python/updateday/venv/bin/python -m src
+
+cd $current
