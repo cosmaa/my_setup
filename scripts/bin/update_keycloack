@@ -10,11 +10,10 @@ Purple='\033[0;35m'
 
 # ---------------------------- Funktions ----------------------------------------
 function update_version() {
-  local fn=$1
-  local replace=$2
-  local version=$3
-  sed -i "s/$version/$replace/gi" "$fn"
-  printf "${Purple}replaced VERSION $version with $replace ${NC}\n"
+  local fn="${1}"
+  local replace="${2}"
+  local version="${3}"
+
 
 }
 
@@ -35,24 +34,33 @@ function check_package_versions() {
 
 LOOKING_FOR=("keycloakResourceServerVersion" "reactiveSecurityVersion")
 
+
+
+KEYCLOAK=202205021125070200
+REACTIVE=202203140810310100
+
 check_package_versions
 echo "======================="
 read -p "are this files okay to update? [y,N]: " okay
 if [[ $okay == "y" || $okay == "Y" ]]; then
   for package in "${LOOKING_FOR[@]}"; do
-
-    printf "####################### \n please enter new version of ${Purple}$package${NC}: "
-    FILES_TO_UPDATE=$(rg -l "$package") || echo "nothing found in this root $DIR"
-    read -p "" replace
+    FILES_TO_UPDATE=$(rg -l "${package}") || echo "nothing found in this root $DIR"
+    if [ "${package}" == "keycloakResourceServerVersion" ]; then
+      replace="${KEYCLOAK}"
+      elif [ "${package}" == "reactiveSecurityVersion" ]; then
+      replace="${REACTIVE}"
+    fi
 
     for fn in $FILES_TO_UPDATE; do
       VERSION=$(sed -n "/val $package/p" $fn | sed -e 's/[^0-9]/ /g' -e 's/^ *//g' -e 's/ *$//g')
-      printf "want to replace ${Yellow}%s${NC} with ${Purple}%s${NC} in project $Blue%s$NC ???  [Y,n]: " "$replace" "$VERSION" "$(dirname "${fn}")"
+      echo ${VERSION}
+      printf "want to replace ${Yellow}${replace}${NC} with ${Purple}${VERSION}${NC} in project ${Blue}$(dirname ${fn})${NC} ???  [Y,n]: "
       read -p "" enter
-      if [[ $enter == "n" || $enter == "N" ]]; then
+      if [[ ${enter} == "n" || "${enter}" == "N" ]]; then
         printf "${Yellow}not updating${NC}\n"
       else
-        update_version "$fn" "$replace" "$VERSION"
+        sed -i "s/$VERSION/$replace/gi" "$fn"
+        printf "${Purple}replaced VERSION ${VERSION} with $replace ${NC}\n"
       fi
     done
   done
