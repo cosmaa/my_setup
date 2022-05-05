@@ -4,3 +4,6 @@ SHELL := /bin/bash
 setup:
 	./setup.sh
 
+.PHONY: run
+run:
+	venv/bin/python -m src
