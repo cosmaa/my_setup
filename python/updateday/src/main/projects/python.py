@@ -24,4 +24,4 @@ class PythonProject(GitHub):
         return f"{head}/{tail}"
 
     def __str__(self):
-        return f"Python project: {self.project_root_path} with {self.name}"
+        return f"Python project: {self.project_root_path} : \t {self.name}"

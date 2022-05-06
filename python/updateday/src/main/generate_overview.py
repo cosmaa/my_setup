@@ -52,11 +52,10 @@ def find_python_projects():
 
 
 def collect_projects():
-    overview = {
-        "python": find_python_projects(),
-        "kotlin": find_kotlin_projects()
-    }
+    logger.info("##### start collecting PYTHON projects #####")
+    find_python_projects()
+    logger.info("##### start collecting KOTLIN projects #####")
+    find_kotlin_projects()
 
-    logger.debug(f"generated overview: {overview}")
 
 

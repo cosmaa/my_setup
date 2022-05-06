@@ -9,7 +9,7 @@ class KotlinProject(GitHub):
         pass
 
     def __str__(self):
-        return f"Kotlin project: {self.project_root_path} with {self.name}"
+        return f"Kotlin project: {self.project_root_path} : \t  {self.name}"
 
     def set_project_path(self, path):
         return path
