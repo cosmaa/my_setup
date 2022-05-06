@@ -1,7 +1,8 @@
 import logging
+import os
 
-from .generate_overview import generate_version_overview
-from .utils.logger import ColorLogFormatter, Color
+from .generate_overview import collect_projects
+from .utils.logger import ColorLogFormatter
 
 logger = logging.getLogger("logger")
 logger.setLevel('DEBUG')
@@ -12,4 +13,6 @@ logger.addHandler(stream_handler)
 
 # -----------------------------------------------------------------------------------
 
-generate_version_overview()
+
+#
+collect_projects()
