@@ -1,12 +1,14 @@
 import glob
 import logging
 import os
+import pathlib
 from pathlib import Path
 
 from .projects.kotlin import KotlinProject
 from .projects.python import PythonProject
 
 logger = logging.getLogger("logger")
+
 OTTO_PATH = "/home/comaass/otto"
 
 
@@ -19,6 +21,7 @@ def find_kotlin_projects():
             if "hopper_" in project_path:
                 if build_config_file_name in os.listdir(path=project_path):
                     project = KotlinProject({
+                        "project_root_path": project_path,
                         "path": project_path,
                         "name": tail
                     })
@@ -31,14 +34,15 @@ def find_kotlin_projects():
 
 def find_python_projects():
     result = []
-    pathlist = list(Path(f"{OTTO_PATH}").rglob(f"*.[tT][xX][tT]"))
+    path_list = list(Path(f"{OTTO_PATH}").rglob(f"*.[tT][xX][tT]"))
 
-    for project_path in pathlist:
+    for project_path in path_list:
         head, tail = os.path.split(project_path)
         path, project = os.path.split(head)
         if tail == "requirements.txt":
             if "hopper_" in head:
                 project = PythonProject({
+                    "project_root_path": project_path,
                     "path": head,
                     "name": project
                 })
@@ -53,3 +57,5 @@ def collect_projects():
         "kotlin": find_kotlin_projects()
     }
     logger.info(f"generated overview: {overview}")
+
+

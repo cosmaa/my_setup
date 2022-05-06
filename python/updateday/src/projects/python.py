@@ -1,10 +1,12 @@
-import json
-from abc import ABC
-
 from .git_handler import GitHub
 
 
 class PythonProject(GitHub):
+
+    # GITHUB init:
+    # project_root_path
+    # path
+    # name
 
     def update_Versions(self):
         pass
@@ -12,13 +14,3 @@ class PythonProject(GitHub):
     def __str__(self):
         return f"Python project: \t {self.name}"
 
-
-
-if __name__ == '__main__':
-    data = {
-        "path": "/home/comaass/otto/hopper_auction-presentation",
-        "name": "hopper_auction-presentation"
-    }
-
-    project = PythonProject(data)
-    print(project)
