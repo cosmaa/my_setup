@@ -4,8 +4,8 @@ import os
 import pathlib
 from pathlib import Path
 
-from .projects.kotlin import KotlinProject
-from .projects.python import PythonProject
+from .project_handler.kotlin import KotlinProject
+from .project_handler.python import PythonProject
 
 logger = logging.getLogger("logger")
 

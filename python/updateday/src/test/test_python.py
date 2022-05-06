@@ -1,4 +1,4 @@
-from ..main.projects.python import PythonProject
+from ..main.project_handler.python import PythonProject
 import pytest
 
 
