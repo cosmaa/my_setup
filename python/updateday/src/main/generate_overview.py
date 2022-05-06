@@ -42,7 +42,7 @@ def find_python_projects():
         if tail == "requirements.txt":
             if "hopper_" in head:
                 project = PythonProject({
-                    "project_root_path": project_path,
+                    "project_root_path": project_path.__str__(),
                     "path": head,
                     "name": project
                 })
@@ -56,6 +56,7 @@ def collect_projects():
         "python": find_python_projects(),
         "kotlin": find_kotlin_projects()
     }
-    logger.info(f"generated overview: {overview}")
+
+    logger.debug(f"generated overview: {overview}")
 
 

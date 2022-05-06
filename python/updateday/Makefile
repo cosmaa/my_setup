@@ -11,4 +11,4 @@ run:
 
 .PHONY: test
 test:
-	venv/bin/python -m pytest test
+	venv/bin/python -m pytest src/test
