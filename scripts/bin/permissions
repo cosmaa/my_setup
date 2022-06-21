@@ -1,0 +1,4 @@
+#!/bin/bash
+profile="hopper-infrastructure"
+
+aws --profile "${profile}" iam list-roles | jq '.Roles | map([.RoleName, .Arn])'  | jq @sh

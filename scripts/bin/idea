@@ -14,8 +14,8 @@ if [[ -z "$1" ]] ; then
     PROJECT=$(fzf_select_project)
   fi
 
-  ~/otto/tools/ideaIU-2021.3/bin/idea.sh $PROJECT &>/dev/null &
+  ~/otto/tools/ideaIU-2022.1/bin/idea.sh $PROJECT &>/dev/null &
 else
-  ~/otto/tools/ideaIU-2021.3/bin/idea.sh $1 &>/dev/null &
+  ~/otto/tools/ideaIU-2022.1/bin/idea.sh $1 &>/dev/null &
 fi
 
