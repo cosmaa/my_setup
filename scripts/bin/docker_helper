@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+echo "docker ps"
+echo "docker exec -it <CONTAINER ID> /bin/bash"
+echo "apt-get install nano"
