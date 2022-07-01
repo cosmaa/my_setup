@@ -4,3 +4,4 @@ export STANI_SCRIPTS="${STANI_PROJECTS}/my_setup/scripts"
 export STANI_SETUP="${STANI_PROJECTS}/my_setup"
 
 export PATH="${PATH}:${STANI_PROJECTS}/:${STANI_SCRIPTS}/bin"
+export GITHUB_TOKEN=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
